@@ -203,7 +203,7 @@ fi
 
 
 # Add default JVM options here. You can also use JAVA_OPTS and STORE_POS_OPTS to pass JVM options to this script.
-DEFAULT_JVM_OPTS='"--add-exports=javafx.base/com.sun.javafx.event=org.controlsfx.controls" "--add-opens=javafx.base/com.sun.javafx.event=org.controlsfx.controls"'
+DEFAULT_JVM_OPTS='"--add-exports=javafx.base/com.sun.javafx.event=ALL-UNNAMED" "--add-opens=javafx.base/com.sun.javafx.event=ALL-UNNAMED"'
 
 # Collect all arguments for the java command:
 #   * DEFAULT_JVM_OPTS, JAVA_OPTS, JAVA_OPTS, and optsEnvironmentVar are not allowed to contain shell fragments,

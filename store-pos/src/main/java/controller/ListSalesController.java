@@ -94,61 +94,78 @@ public class ListSalesController implements Initializable {
         }
     }
 
-    private TableView<SalesModel> createTable() { 
-        
-        TableView<SalesModel> tableView = new TableView<>();
-        
+    private TableView<SalesModel> createTable() {
+        TableView<SalesModel> tableView = new TableView();
         String rightPositionCSS = "-fx-alignment: CENTER-RIGHT;";
-        String centerPostionCSS = "-fx-alignment: CENTER;";
+        String centerPositionCSS = "-fx-alignment: CENTER;";
 
-        TableColumn<SalesModel, Long> columnInvoiceId = new TableColumn<>("Order Id");
+        TableColumn<SalesModel, Long> columnInvoiceId = new TableColumn<>("주문번호");
         columnInvoiceId.setCellValueFactory(new PropertyValueFactory<>("orderId"));
+        columnInvoiceId.setStyle("-fx-font-family: 'Malgun Gothic';");
 
-        TableColumn<SalesModel, Long> columnInvoiceDate = new TableColumn<>("Invoice Date");
+        TableColumn<SalesModel, Long> columnInvoiceDate = new TableColumn<>("거래일자");
         columnInvoiceDate.setCellValueFactory(new PropertyValueFactory<>("invoiceDate"));
+        columnInvoiceDate.setStyle("-fx-font-family: 'Malgun Gothic';");
 
-        TableColumn<SalesModel, Long> columnPartyName = new TableColumn<>("Party");
+        TableColumn<SalesModel, Long> columnPartyName = new TableColumn<>("거래처명");
         columnPartyName.setCellValueFactory(new PropertyValueFactory<>("partyName"));
-        
-        TableColumn<SalesModel, Long> columnCurrency = new TableColumn<>("Currency");
+        columnPartyName.setStyle("-fx-font-family: 'Malgun Gothic';");
+
+        TableColumn<SalesModel, Long> columnCurrency = new TableColumn<>("통화");
         columnCurrency.setCellValueFactory(new PropertyValueFactory<>("currency"));
-        
-        TableColumn<SalesModel, Long> columnTaux = new TableColumn<>("Taux");
+        columnCurrency.setStyle("-fx-font-family: 'Malgun Gothic';");
+
+        TableColumn<SalesModel, Long> columnTaux = new TableColumn<>("환율");
         columnTaux.setCellValueFactory(new PropertyValueFactory<>("taux"));
+        columnTaux.setStyle("-fx-font-family: 'Malgun Gothic';");
 
-        TableColumn<SalesModel, Long> columnTotalQuantity = new TableColumn<>("Quantity");
+        TableColumn<SalesModel, Long> columnTotalQuantity = new TableColumn<>("수량");
         columnTotalQuantity.setCellValueFactory(new PropertyValueFactory<>("totalQuantity"));
-        columnTotalQuantity.setStyle(rightPositionCSS);
+        columnTotalQuantity.setStyle(rightPositionCSS + "; -fx-font-family: 'Malgun Gothic';");
 
-        TableColumn<SalesModel, Long> columnTotalAmount = new TableColumn<>("Total Amount");
+        TableColumn<SalesModel, Long> columnTotalAmount = new TableColumn<>("총액");
         columnTotalAmount.setCellValueFactory(new PropertyValueFactory<>("totalAmount"));
-        columnTotalAmount.setStyle(rightPositionCSS);
+        columnTotalAmount.setStyle(rightPositionCSS + "; -fx-font-family: 'Malgun Gothic';");
 
-        TableColumn<SalesModel, Long> columnOtherAmount = new TableColumn<>("Other Amount");
+        TableColumn<SalesModel, Long> columnOtherAmount = new TableColumn<>("기타금액");
         columnOtherAmount.setCellValueFactory(new PropertyValueFactory<>("otherAmount"));
-        columnOtherAmount.setStyle(rightPositionCSS);
+        columnOtherAmount.setStyle(rightPositionCSS + "; -fx-font-family: 'Malgun Gothic';");
 
-        TableColumn<SalesModel, Long> columnTotalPaybleAmount = new TableColumn<>("Payble Amount");
+        TableColumn<SalesModel, Long> columnTotalPaybleAmount = new TableColumn<>("지급예정액");
         columnTotalPaybleAmount.setCellValueFactory(new PropertyValueFactory<>("totalPaybleAmount"));
-        columnTotalPaybleAmount.setStyle(rightPositionCSS);
+        columnTotalPaybleAmount.setStyle(rightPositionCSS + "; -fx-font-family: 'Malgun Gothic';");
 
-        TableColumn<SalesModel, Long> columnTotalPaidAmount = new TableColumn<>("Paid Amount");
+        TableColumn<SalesModel, Long> columnTotalPaidAmount = new TableColumn<>("지급액");
         columnTotalPaidAmount.setCellValueFactory(new PropertyValueFactory<>("totalPaidAmount"));
-        columnTotalPaidAmount.setStyle(rightPositionCSS);
+        columnTotalPaidAmount.setStyle(rightPositionCSS + "; -fx-font-family: 'Malgun Gothic';");
 
-        TableColumn<SalesModel, Long> columnTotalDueAmount = new TableColumn<>("Due Amount");
+        TableColumn<SalesModel, Long> columnTotalDueAmount = new TableColumn<>("미지급액");
         columnTotalDueAmount.setCellValueFactory(new PropertyValueFactory<>("totalDueAmount"));
-        columnTotalDueAmount.setStyle(rightPositionCSS);
+        columnTotalDueAmount.setStyle(rightPositionCSS + "; -fx-font-family: 'Malgun Gothic';");
 
-        tableView.getColumns().addAll(columnInvoiceId, columnInvoiceDate, columnPartyName, columnCurrency, columnTaux, columnTotalQuantity,
-                columnTotalAmount, columnOtherAmount, columnTotalPaybleAmount, columnTotalPaidAmount, columnTotalDueAmount);
-
+        tableView.getColumns().addAll(
+                columnInvoiceId, columnInvoiceDate, columnPartyName, columnCurrency, columnTaux,
+                columnTotalQuantity, columnTotalAmount, columnOtherAmount,
+                columnTotalPaybleAmount, columnTotalPaidAmount, columnTotalDueAmount
+        );
+        // 테이블 전체에도 폰트 적용
+        tableView.setStyle("-fx-font-family: 'Malgun Gothic';");
         return tableView;
     }
 
+
     @FXML
     public void viewInvoice(ActionEvent event) {
-        List<SalesModel> collect = (List<SalesModel>) tableView.getSelectionModel().getSelectedItems().stream().collect(Collectors.toList());
+        List<SalesModel> collect = (List) this.tableView.getSelectionModel().getSelectedItems().stream().collect(Collectors.toList());
+
+        if (collect.isEmpty()) {
+            AlertHelper.showAlert(Alert.AlertType.WARNING,
+                    ((Node)event.getSource()).getScene().getWindow(),
+                    "경고",
+                    "선택된 항목이 없습니다."
+            );
+            return;
+        }
         long orderId = collect.get(0).getOrderId();
         EditSalesController.orderId = orderId;
         Scene scene = (Scene) ((Node) event.getSource()).getScene();
@@ -165,10 +182,15 @@ public class ListSalesController implements Initializable {
     @FXML
     private void deleteInvoice(ActionEvent event) {
         Window owner = deleteButton.getScene().getWindow();
-        AlertHelper.showAlert(Alert.AlertType.CONFIRMATION, owner, "Confirmation",
-                "Do you want to delete it?");
+        AlertHelper.showAlert(Alert.AlertType.CONFIRMATION, owner, "확인", "정말로 삭제하시겠습니까?");
         if (AlertHelper.result) {
             List<SalesModel> collect = (List<SalesModel>) tableView.getSelectionModel().getSelectedItems().stream().collect(Collectors.toList());
+
+            if (collect.isEmpty()) {
+                AlertHelper.showAlert(Alert.AlertType.WARNING, owner, "경고", "삭제할 항목을 선택해주세요.");
+                return;
+            }
+
             long orderId = collect.get(0).getOrderId();
             EditPurchaseController.orderId = orderId;
             Statement stmt;
@@ -176,11 +198,11 @@ public class ListSalesController implements Initializable {
                 stmt = con.createStatement();
                 stmt.executeQuery("delete from sales where order_id = " + orderId);
                 tableView.getItems().remove(collect.get(0));
-                AlertHelper.showAlert(Alert.AlertType.INFORMATION, owner, "Information",
-                        "A record has been deleted successfully.");
+                AlertHelper.showAlert(Alert.AlertType.INFORMATION, owner, "알림", "항목이 성공적으로 삭제되었습니다.");
             } catch (SQLException ex) {
                 Logger.getLogger(ListPurchaseController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
+
 }

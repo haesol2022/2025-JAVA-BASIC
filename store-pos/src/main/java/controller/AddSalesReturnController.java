@@ -45,6 +45,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
+import javafx.scene.text.Font;
 
 /**
  *
@@ -133,32 +134,45 @@ public class AddSalesReturnController implements Initializable {
         AutoCompletionTextFieldBinding test1 = new AutoCompletionTextFieldBinding<>(textFieldParty, provider1);
         test1.setOnAutoCompleted(e -> setCustomer());
 
-        TableColumn<Item, String> columnItem = new TableColumn<>("Item");
+        TableColumn<Item, String> columnItem = new TableColumn<>("상품명");
         columnItem.setCellValueFactory(new PropertyValueFactory<>("item"));
         columnItem.setPrefWidth(400);
+        columnItem.setStyle("-fx-font-family: 'Malgun Gothic'; -fx-font-weight: bold;");
 
-        TableColumn<Item, String> columnUom = new TableColumn<>("Uom");
+        TableColumn<Item, String> columnUom = new TableColumn<>("단위");
         columnUom.setCellValueFactory(new PropertyValueFactory<>("uom"));
+        columnItem.setPrefWidth(400);
+        columnItem.setStyle("-fx-font-family: 'Malgun Gothic'; -fx-font-weight: bold;");
 
-        TableColumn<Item, Float> columnQuantity = new TableColumn<>("Quantity");
+        TableColumn<Item, Float> columnQuantity = new TableColumn<>("수량");
         columnQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         columnQuantity.setStyle(rightPositionCSS);
+        columnItem.setPrefWidth(400);
+        columnItem.setStyle("-fx-font-family: 'Malgun Gothic'; -fx-font-weight: bold;");
 
-        TableColumn<Item, Float> columnLocation = new TableColumn<>("Location");
+        TableColumn<Item, Float> columnLocation = new TableColumn<>("위치");
         columnLocation.setCellValueFactory(new PropertyValueFactory<>("location"));
         columnLocation.setStyle(centerPostionCSS);
+        columnItem.setPrefWidth(400);
+        columnItem.setStyle("-fx-font-family: 'Malgun Gothic'; -fx-font-weight: bold;");
 
-        TableColumn<Item, Float> columnPrice = new TableColumn<>("Price");
+        TableColumn<Item, Float> columnPrice = new TableColumn<>("가격");
         columnPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
         columnPrice.setStyle(rightPositionCSS);
+        columnItem.setPrefWidth(400);
+        columnItem.setStyle("-fx-font-family: 'Malgun Gothic'; -fx-font-weight: bold;");
 
-        TableColumn<Item, Float> columnAmount = new TableColumn<>("Amount");
+        TableColumn<Item, Float> columnAmount = new TableColumn<>("양");
         columnAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
         columnAmount.setStyle(rightPositionCSS);
+        columnItem.setPrefWidth(400);
+        columnItem.setStyle("-fx-font-family: 'Malgun Gothic'; -fx-font-weight: bold;");
 
-        TableColumn<Item, Long> columnItemId = new TableColumn<>("Item ID");
+        TableColumn<Item, Long> columnItemId = new TableColumn<>("아이템 ID");
         columnItemId.setCellValueFactory(new PropertyValueFactory<>("itemId"));
         columnItemId.setVisible(false);
+        columnItem.setPrefWidth(400);
+        columnItem.setStyle("-fx-font-family: 'Malgun Gothic'; -fx-font-weight: bold;");
 
         tableViewItem.getColumns().add(columnItemId);
 
@@ -169,8 +183,8 @@ public class AddSalesReturnController implements Initializable {
         tableViewItem.getColumns().add(columnPrice);
         tableViewItem.getColumns().add(columnAmount);
 
-        comboBoxLocation.getItems().setAll("Rack", "Depot", "Display");
-        comboBoxLocation.getSelectionModel().select("Depot");
+        comboBoxLocation.getItems().setAll("진열대", "창고", "전시");
+        comboBoxLocation.getSelectionModel().select("창고");
     }
 
     @FXML

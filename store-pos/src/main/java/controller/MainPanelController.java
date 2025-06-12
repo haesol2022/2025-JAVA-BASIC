@@ -26,6 +26,9 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.Node;
+
 
 /**
  * FXML Controller class
@@ -33,6 +36,22 @@ import javafx.stage.Stage;
  * @author Ramesh Godara
  */
 public class MainPanelController implements Initializable {
+
+    @FXML
+    private void handleLogout(ActionEvent event) {
+        try {
+            // 로그인 화면 FXML 로드
+            Parent loginRoot = FXMLLoader.load(getClass().getResource("/view/LoginView.fxml"));
+            Scene loginScene = new Scene(loginRoot);
+
+            // 현재 Stage 가져오기
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(loginScene);
+            stage.setTitle("로그인");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     private BorderPane borderPane;
@@ -171,14 +190,14 @@ public class MainPanelController implements Initializable {
         paymentSeries.getData().add(new XYChart.Data("15", 10000));
         paymentSeries.getData().add(new XYChart.Data("16", 6500));
         paymentSeries.getData().add(new XYChart.Data("17", 8000));
-        
-        receiptSeries.setName("Receipt");
-        paymentSeries.setName("Payment");
-        purchaseSeries.setName("Purchase");
-        purchaseReturnSeries.setName("Purchase Return");
-        saleSeries.setName("Sale");
-        saleReturnSeries.setName("Sales Return");
-        
+
+        receiptSeries.setName("영수증");
+        paymentSeries.setName("결제");
+        purchaseSeries.setName("구매");
+        purchaseReturnSeries.setName("구매 반품");
+        saleSeries.setName("판매");
+        saleReturnSeries.setName("판매 반품");
+
         chartPurchase.getData().addAll(purchaseSeries, purchaseReturnSeries);
         chartSale.getData().addAll(saleSeries, saleReturnSeries);
         chartReceipt.getData().addAll(paymentSeries, receiptSeries);    

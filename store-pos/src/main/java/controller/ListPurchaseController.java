@@ -34,6 +34,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Window;
 import model.PurchaseModel;
+import javafx.scene.text.Font;
 
 /**
  * FXML Controller class
@@ -101,38 +102,42 @@ public class ListPurchaseController implements Initializable {
         String rightPositionCSS = "-fx-alignment: CENTER-RIGHT;";
         String centerPostionCSS = "-fx-alignment: CENTER;";
 
-        TableColumn<PurchaseModel, Long> columnInvoiceId = new TableColumn<>("Order Id");
+        TableColumn<PurchaseModel, Long> columnInvoiceId = new TableColumn<>("주문번호");
         columnInvoiceId.setCellValueFactory(new PropertyValueFactory<>("orderId"));
+        columnInvoiceId.setStyle("-fx-font-family: 'Malgun Gothic';");
 
-        TableColumn<PurchaseModel, Long> columnInvoiceDate = new TableColumn<>("Invoice Date");
+        TableColumn<PurchaseModel, Long> columnInvoiceDate = new TableColumn<>("거래일자");
         columnInvoiceDate.setCellValueFactory(new PropertyValueFactory<>("invoiceDate"));
+        columnInvoiceDate.setStyle("-fx-font-family: 'Malgun Gothic';");
 
-        TableColumn<PurchaseModel, Long> columnPartyName = new TableColumn<>("Party");
+        TableColumn<PurchaseModel, Long> columnPartyName = new TableColumn<>("거래처명");
         columnPartyName.setCellValueFactory(new PropertyValueFactory<>("partyName"));
+        columnPartyName.setStyle("-fx-font-family: 'Malgun Gothic';");
 
-        TableColumn<PurchaseModel, Long> columnTotalQuantity = new TableColumn<>("Quantity");
+        TableColumn<PurchaseModel, Long> columnTotalQuantity = new TableColumn<>("수량");
         columnTotalQuantity.setCellValueFactory(new PropertyValueFactory<>("totalQuantity"));
-        columnTotalQuantity.setStyle(rightPositionCSS);
+        columnTotalQuantity.setStyle(rightPositionCSS + "; -fx-font-family: 'Malgun Gothic';");
 
-        TableColumn<PurchaseModel, Long> columnTotalAmount = new TableColumn<>("Total Amount");
+        TableColumn<PurchaseModel, Long> columnTotalAmount = new TableColumn<>("총액");
         columnTotalAmount.setCellValueFactory(new PropertyValueFactory<>("totalAmount"));
-        columnTotalAmount.setStyle(rightPositionCSS);
+        columnTotalAmount.setStyle(rightPositionCSS + "; -fx-font-family: 'Malgun Gothic';");
 
-        TableColumn<PurchaseModel, Long> columnOtherAmount = new TableColumn<>("Other Amount");
+        TableColumn<PurchaseModel, Long> columnOtherAmount = new TableColumn<>("기타금액");
         columnOtherAmount.setCellValueFactory(new PropertyValueFactory<>("otherAmount"));
-        columnOtherAmount.setStyle(rightPositionCSS);
+        columnOtherAmount.setStyle(rightPositionCSS + "; -fx-font-family: 'Malgun Gothic';");
 
-        TableColumn<PurchaseModel, Long> columnTotalPaybleAmount = new TableColumn<>("Payble Amount");
+        TableColumn<PurchaseModel, Long> columnTotalPaybleAmount = new TableColumn<>("지급예정액");
         columnTotalPaybleAmount.setCellValueFactory(new PropertyValueFactory<>("totalPaybleAmount"));
-        columnTotalPaybleAmount.setStyle(rightPositionCSS);
+        columnTotalPaybleAmount.setStyle(rightPositionCSS + "; -fx-font-family: 'Malgun Gothic';");
 
-        TableColumn<PurchaseModel, Long> columnTotalPaidAmount = new TableColumn<>("Paid Amount");
+        TableColumn<PurchaseModel, Long> columnTotalPaidAmount = new TableColumn<>("지급액");
         columnTotalPaidAmount.setCellValueFactory(new PropertyValueFactory<>("totalPaidAmount"));
-        columnTotalPaidAmount.setStyle(rightPositionCSS);
+        columnTotalPaidAmount.setStyle(rightPositionCSS + "; -fx-font-family: 'Malgun Gothic';");
 
-        TableColumn<PurchaseModel, Long> columnTotalDueAmount = new TableColumn<>("Due Amount");
+        TableColumn<PurchaseModel, Long> columnTotalDueAmount = new TableColumn<>("미지급액");
         columnTotalDueAmount.setCellValueFactory(new PropertyValueFactory<>("totalDueAmount"));
-        columnTotalDueAmount.setStyle(rightPositionCSS);
+        columnTotalDueAmount.setStyle(rightPositionCSS + "; -fx-font-family: 'Malgun Gothic';");
+
 
         tableView.getColumns().addAll(columnInvoiceId, columnInvoiceDate, columnPartyName, columnTotalQuantity,
                 columnTotalAmount, columnOtherAmount, columnTotalPaybleAmount, columnTotalPaidAmount, columnTotalDueAmount);
@@ -143,6 +148,16 @@ public class ListPurchaseController implements Initializable {
     @FXML
     public void viewInvoice(ActionEvent event) {
         List<PurchaseModel> collect = (List<PurchaseModel>) tableView.getSelectionModel().getSelectedItems().stream().collect(Collectors.toList());
+
+        if (collect.isEmpty()) {
+            AlertHelper.showAlert(Alert.AlertType.WARNING,
+                    ((Node)event.getSource()).getScene().getWindow(),
+                    "경고",
+                    "선택된 항목이 없습니다."
+            );
+            return;
+        }
+
         long orderId = collect.get(0).getOrderId();
         EditPurchaseController.orderId = orderId;
         Scene scene = (Scene) ((Node) event.getSource()).getScene();
@@ -159,10 +174,15 @@ public class ListPurchaseController implements Initializable {
     @FXML
     private void deleteInvoice(ActionEvent event) {
         Window owner = deleteButton.getScene().getWindow();
-        AlertHelper.showAlert(Alert.AlertType.CONFIRMATION, owner, "Confirmation",
-                "Do you want to delete it?");
+        AlertHelper.showAlert(Alert.AlertType.CONFIRMATION, owner, "확인", "정말로 삭제하시겠습니까?");
         if (AlertHelper.result) {
             List<PurchaseModel> collect = (List<PurchaseModel>) tableView.getSelectionModel().getSelectedItems().stream().collect(Collectors.toList());
+
+            if (collect.isEmpty()) {
+                AlertHelper.showAlert(Alert.AlertType.WARNING, owner, "경고", "삭제할 항목을 선택해주세요.");
+                return;
+            }
+
             long orderId = collect.get(0).getOrderId();
             EditPurchaseController.orderId = orderId;
             Statement stmt;
@@ -170,11 +190,11 @@ public class ListPurchaseController implements Initializable {
                 stmt = con.createStatement();
                 stmt.executeQuery("delete from purchases where order_id = " + orderId);
                 tableView.getItems().remove(collect.get(0));
-                AlertHelper.showAlert(Alert.AlertType.INFORMATION, owner, "Information",
-                        "A record has been deleted successfully.");
+                AlertHelper.showAlert(Alert.AlertType.INFORMATION, owner, "알림", "항목이 성공적으로 삭제되었습니다.");
             } catch (SQLException ex) {
                 Logger.getLogger(ListPurchaseController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
+
 }

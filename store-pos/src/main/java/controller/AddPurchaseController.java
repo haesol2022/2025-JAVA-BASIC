@@ -45,6 +45,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
+import javafx.scene.text.Font;
 
 /**
  *
@@ -126,52 +127,55 @@ public class AddPurchaseController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         String rightPositionCSS = "-fx-alignment: CENTER-RIGHT;";
-        String centerPostionCSS = "-fx-alignment: CENTER;";
+        String centerPositionCSS = "-fx-alignment: CENTER;";
+
         AutoCompletionTextFieldBinding test = new AutoCompletionTextFieldBinding<>(textFieldItem, provider);
         test.setOnAutoCompleted(e -> setUomAndPrice());
 
         AutoCompletionTextFieldBinding test1 = new AutoCompletionTextFieldBinding<>(textFieldParty, provider1);
         test1.setOnAutoCompleted(e -> setCustomer());
 
-        TableColumn<Item, String> columnItem = new TableColumn<>("Item");
-        columnItem.setCellValueFactory(new PropertyValueFactory<>("item"));
-        columnItem.setPrefWidth(400);
-
-        TableColumn<Item, String> columnUom = new TableColumn<>("Uom");
-        columnUom.setCellValueFactory(new PropertyValueFactory<>("uom"));
-
-        TableColumn<Item, Float> columnQuantity = new TableColumn<>("Quantity");
-        columnQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-        columnQuantity.setStyle(rightPositionCSS);
-
-        TableColumn<Item, Float> columnLocation = new TableColumn<>("Location");
-        columnLocation.setCellValueFactory(new PropertyValueFactory<>("location"));
-        columnLocation.setStyle(centerPostionCSS);
-
-        TableColumn<Item, Float> columnPrice = new TableColumn<>("Price");
-        columnPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-        columnPrice.setStyle(rightPositionCSS);
-
-        TableColumn<Item, Float> columnAmount = new TableColumn<>("Amount");
-        columnAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
-        columnAmount.setStyle(rightPositionCSS);
-
-        TableColumn<Item, Long> columnItemId = new TableColumn<>("Item ID");
+        // 컬럼 정의 및 한글화
+        TableColumn<Item, Long> columnItemId = new TableColumn<>("아이템 ID");
         columnItemId.setCellValueFactory(new PropertyValueFactory<>("itemId"));
         columnItemId.setVisible(false);
 
-        tableViewItem.getColumns().add(columnItemId);
+        TableColumn<Item, String> columnItem = new TableColumn<>("상품명");
+        columnItem.setCellValueFactory(new PropertyValueFactory<>("item"));
+        columnItem.setPrefWidth(400);
+        columnItem.setStyle("-fx-font-family: 'Malgun Gothic';");
 
-        tableViewItem.getColumns().add(columnItem);
-        tableViewItem.getColumns().add(columnUom);
-        tableViewItem.getColumns().add(columnQuantity);
-        tableViewItem.getColumns().add(columnLocation);
-        tableViewItem.getColumns().add(columnPrice);
-        tableViewItem.getColumns().add(columnAmount);
+        TableColumn<Item, String> columnUom = new TableColumn<>("단위");
+        columnUom.setCellValueFactory(new PropertyValueFactory<>("uom"));
+        columnUom.setStyle("-fx-font-family: 'Malgun Gothic';");
 
-        comboBoxLocation.getItems().setAll("Rack", "Depot", "Display");
-        comboBoxLocation.getSelectionModel().select("Depot");
+        TableColumn<Item, Float> columnQuantity = new TableColumn<>("수량");
+        columnQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        columnQuantity.setStyle(rightPositionCSS + "; -fx-font-family: 'Malgun Gothic';");
+
+        TableColumn<Item, Float> columnLocation = new TableColumn<>("위치");
+        columnLocation.setCellValueFactory(new PropertyValueFactory<>("location"));
+        columnLocation.setStyle(centerPositionCSS + "; -fx-font-family: 'Malgun Gothic';");
+
+        TableColumn<Item, Float> columnPrice = new TableColumn<>("가격");
+        columnPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        columnPrice.setStyle(rightPositionCSS + "; -fx-font-family: 'Malgun Gothic';");
+
+        TableColumn<Item, Float> columnAmount = new TableColumn<>("금액");
+        columnAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        columnAmount.setStyle(rightPositionCSS + "; -fx-font-family: 'Malgun Gothic';");
+
+        // 컬럼 추가 (중복 없이 한 번씩만)
+        tableViewItem.getColumns().addAll(
+                columnItemId, columnItem, columnUom, columnQuantity,
+                columnLocation, columnPrice, columnAmount
+        );
+
+        // 콤보박스 한글화
+        comboBoxLocation.getItems().setAll("진열대", "창고", "전시");
+        comboBoxLocation.getSelectionModel().select("창고");
     }
+
 
     @FXML
     @SuppressWarnings("empty-statement")
@@ -463,8 +467,9 @@ public class AddPurchaseController implements Initializable {
 
             Window owner = buttonSave.getScene().getWindow();
 
-            AlertHelper.showAlert(Alert.AlertType.INFORMATION, owner, "Information",
-                    "A record has been saved successfully.");
+            AlertHelper.showAlert(Alert.AlertType.INFORMATION, owner, "알림",
+                    "저장이 완료되었습니다.");
+
             printInvoice();
             clearFooterForm();
             textFieldItem.requestFocus();

@@ -7,14 +7,24 @@ repositories {
     mavenCentral()
 }
 
+// 한글 빌드를 위한 인코딩 설정 추가
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+tasks.withType(Test) {
+    systemProperty 'file.encoding', 'UTF-8'
+}
+
 dependencies {
     implementation 'org.openjfx:javafx-controls:17.0.2'
     implementation 'org.openjfx:javafx-fxml:17.0.2'
     implementation 'org.controlsfx:controlsfx:11.2.1'
     implementation 'net.sf.jasperreports:jasperreports:7.0.1'
     implementation 'com.oracle.database.jdbc:ojdbc11:23.8.0.25.04'
-
-
 }
 
 javafx {
@@ -29,4 +39,3 @@ application {
             '--add-opens=javafx.base/com.sun.javafx.event=ALL-UNNAMED'
     ]
 }
-

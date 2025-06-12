@@ -44,6 +44,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Window;
 import model.Item;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
+import javafx.scene.text.Font;
 
 /**
  * FXML Controller class
@@ -141,37 +142,45 @@ public class EditSalesController implements Initializable {
         AutoCompletionTextFieldBinding test1 = new AutoCompletionTextFieldBinding<>(textFieldParty, provider1);
         test1.setOnAutoCompleted(e -> setCustomer());
 
-        TableColumn<Item, String> columnItem = new TableColumn<>("Item");
+        TableColumn<Item, String> columnItem = new TableColumn<>("상품명");
         columnItem.setCellValueFactory(new PropertyValueFactory<>("item"));
         columnItem.setPrefWidth(400);
+        columnItem.setStyle("-fx-font-family: 'Malgun Gothic'; -fx-font-weight: bold;");
 
-        TableColumn<Item, String> columnUom = new TableColumn<>("Uom");
+        TableColumn<Item, String> columnUom = new TableColumn<>("단위");
         columnUom.setCellValueFactory(new PropertyValueFactory<>("uom"));
-        columnUom.setSortable(true);
+        columnItem.setPrefWidth(400);
+        columnItem.setStyle("-fx-font-family: 'Malgun Gothic'; -fx-font-weight: bold;");
 
-        TableColumn<Item, Float> columnQuantity = new TableColumn<>("Quantity");
+        TableColumn<Item, Float> columnQuantity = new TableColumn<>("수량");
         columnQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-        columnQuantity.setSortable(true);
         columnQuantity.setStyle(rightPositionCSS);
+        columnItem.setPrefWidth(400);
+        columnItem.setStyle("-fx-font-family: 'Malgun Gothic'; -fx-font-weight: bold;");
 
-        TableColumn<Item, Float> columnLocation = new TableColumn<>("Location");
+        TableColumn<Item, Float> columnLocation = new TableColumn<>("위치");
         columnLocation.setCellValueFactory(new PropertyValueFactory<>("location"));
-        columnLocation.setSortable(true);
         columnLocation.setStyle(centerPostionCSS);
+        columnItem.setPrefWidth(400);
+        columnItem.setStyle("-fx-font-family: 'Malgun Gothic'; -fx-font-weight: bold;");
 
-        TableColumn<Item, Float> columnPrice = new TableColumn<>("Price");
+        TableColumn<Item, Float> columnPrice = new TableColumn<>("가격");
         columnPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-        columnPrice.setSortable(true);
         columnPrice.setStyle(rightPositionCSS);
+        columnItem.setPrefWidth(400);
+        columnItem.setStyle("-fx-font-family: 'Malgun Gothic'; -fx-font-weight: bold;");
 
-        TableColumn<Item, Float> columnAmount = new TableColumn<>("Amount");
+        TableColumn<Item, Float> columnAmount = new TableColumn<>("양");
         columnAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
-        columnAmount.setSortable(true);
         columnAmount.setStyle(rightPositionCSS);
+        columnItem.setPrefWidth(400);
+        columnItem.setStyle("-fx-font-family: 'Malgun Gothic'; -fx-font-weight: bold;");
 
-        TableColumn<Item, Long> columnItemId = new TableColumn<>("Item ID");
+        TableColumn<Item, Long> columnItemId = new TableColumn<>("아이템 ID");
         columnItemId.setCellValueFactory(new PropertyValueFactory<>("itemId"));
         columnItemId.setVisible(false);
+        columnItem.setPrefWidth(400);
+        columnItem.setStyle("-fx-font-family: 'Malgun Gothic'; -fx-font-weight: bold;");
 
         tableViewItem.getColumns().add(columnItemId);
 
@@ -182,8 +191,8 @@ public class EditSalesController implements Initializable {
         tableViewItem.getColumns().add(columnPrice);
         tableViewItem.getColumns().add(columnAmount);
 
-        comboBoxLocation.getItems().setAll("Rack", "Depot", "Display");
-        comboBoxLocation.getSelectionModel().select("Depot");
+        comboBoxLocation.getItems().setAll("진열대", "창고", "전시");
+        comboBoxLocation.getSelectionModel().select("창고");
         
         comboBoxCurrency.getItems().setAll("USD", "FC");
         comboBoxCurrency.getSelectionModel().select("USD");

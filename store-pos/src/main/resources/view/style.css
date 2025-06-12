@@ -1,24 +1,38 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : Oct 28, 2020, 9:06:34 PM
-    Author     : Ramesh Godara
-*/
+
+.root, .parent, .sidebar, .bt, .box {
+    -fx-font-family: 'Pretendard';
+}
+
+/* 기존 및 개선 스타일 */
 .parent {
-    -fx-background-color: #fff
+    -fx-background-color: #fff;
+    -fx-padding: 10px;
+    -fx-border-color: #ddd;
+    -fx-border-width: 1px;
 }
 .sidebar {
-    -fx-background-color: gray
+    -fx-background-color: gray;
+    -fx-pref-width: 200px;
+    -fx-padding: 15px;
 }
 .bt {
-    -fx-background-color: transparent
+    -fx-background-color: transparent;
+    -fx-text-fill: #333;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-padding: 8px 15px;
+    -fx-border-radius: 5px;
+    -fx-border-color: transparent;
+    -fx-border-width: 1px;
 }
 .bt:hover {
-    -fx-background-color: darkseagreen 
+    -fx-background-color: darkseagreen;
+    -fx-text-fill: white;
 }
 .box {
-    
+    -fx-background-color: #f9f9f9;
+    -fx-padding: 20px;
+    -fx-border-radius: 8px;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1px;
 }
