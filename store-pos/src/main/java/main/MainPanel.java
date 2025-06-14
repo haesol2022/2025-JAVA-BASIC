@@ -28,7 +28,7 @@ public class MainPanel extends Application {
 //        Parent root = FXMLLoader.load(getClass().getResource("/view/ListSalesInvoiceView.fxml"));
        // Parent root = FXMLLoader.load(getClass().getResource("/view/MainPanelView.fxml"));
 
-        Parent root = FXMLLoader.load(getClass().getResource("/view/LoginView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/SignUpView.fxml"));
         Scene scene = new Scene(root);
 
 

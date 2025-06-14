@@ -68,13 +68,20 @@
                     prefHeight="38.0" prefWidth="202.0"
                     style="-fx-background-color: #538EFE; -fx-background-radius: 8px; -fx-font-size: 16px; -fx-font-family: 'Pretendard';"
                     text="로그인" textFill="WHITE" onAction="#handleLogin" />
-            <Text fill="#b0b0b0" layoutX="49.0" layoutY="300.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                  text="아이디/비밀번호가 기억나지 않으세요?" wrappingWidth="202.0"
+            <Text fill="#b0b0b0" layoutX="49.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                  text="계정이 없으신가요?" wrappingWidth="202.0"
                   style="-fx-font-family: 'Pretendard';">
                <font>
                   <Font size="12.0" />
                </font>
             </Text>
+            <Button fx:id="goToSignUpButton"
+                    layoutX="49.0" layoutY="320.0"
+                    prefHeight="28.0" prefWidth="202.0"
+                    style="-fx-background-color: #f3f6fa; -fx-background-radius: 8px; -fx-border-color: #dde9ff; -fx-border-width: 1px; -fx-font-size: 12px; -fx-font-family: 'Pretendard';"
+                    text="회원가입 화면으로 이동"
+                    textFill="#538EFE"
+                    onAction="#handleGoToSignUp"/>
          </children>
       </AnchorPane>
    </right>

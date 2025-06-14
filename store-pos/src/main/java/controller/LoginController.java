@@ -34,4 +34,18 @@ public class LoginController {
     public void initialize() {
         characterImage.setImage(new Image(getClass().getResource("/asset/character.png").toExternalForm()));
     }
+
+    @FXML
+    private void handleGoToSignUp(ActionEvent event) {
+        try {
+            Parent signUpView = FXMLLoader.load(getClass().getResource("/view/SignUpView.fxml"));
+            Scene scene = new Scene(signUpView);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Store POS - 회원가입");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

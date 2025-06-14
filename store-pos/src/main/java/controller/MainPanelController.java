@@ -299,4 +299,12 @@ public class MainPanelController implements Initializable {
         loadFXML("ListPurchaseView");
         changeButtonBackground(e);
     }
+
+    @FXML
+    private void loadStockTransferView(ActionEvent e) {
+        loadFXML("StockTransferView");
+        changeButtonBackground(e);
+    }
+
+
 }

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1200.0"
+            style="-fx-background-color: #E2EAFF;"
+            xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.StockTransferController">
+    <children>
+        <!-- 이동일자 -->
+        <Label layoutX="14.0" layoutY="16.0" text="이동일자"
+               style="-fx-font-family: 'Pretendard'; -fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #323A4C;">
+            <font><Font name="Pretendard" size="15.0" /></font>
+        </Label>
+        <DatePicker fx:id="date" layoutX="80.0" layoutY="16.0" prefWidth="130.0" prefHeight="25.0" />
+
+        <!-- 품목 -->
+        <Label layoutX="230.0" layoutY="16.0" text="품목"
+               style="-fx-font-family: 'Pretendard'; -fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #323A4C;">
+            <font><Font name="Pretendard" size="15.0" /></font>
+        </Label>
+        <TextField fx:id="textFieldItem" layoutX="275.0" layoutY="16.0" prefWidth="200.0" prefHeight="25.0"
+                   promptText="품목명 입력" />
+
+        <!-- 단위 -->
+        <Label layoutX="490.0" layoutY="16.0" text="단위"
+               style="-fx-font-family: 'Pretendard'; -fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #323A4C;">
+            <font><Font name="Pretendard" size="15.0" /></font>
+        </Label>
+        <ComboBox fx:id="comboBoxUom" layoutX="535.0" layoutY="16.0" prefWidth="80.0" prefHeight="25.0"
+                  promptText="단위" />
+
+        <!-- 수량 -->
+        <Label layoutX="630.0" layoutY="16.0" text="수량"
+               style="-fx-font-family: 'Pretendard'; -fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #323A4C;">
+            <font><Font name="Pretendard" size="15.0" /></font>
+        </Label>
+        <TextField fx:id="textFieldQty" layoutX="670.0" layoutY="16.0" prefWidth="80.0" prefHeight="25.0"
+                   promptText="수량 입력" />
+
+        <!-- 이동 전 위치 -->
+        <Label layoutX="770.0" layoutY="16.0" text="이동 전 위치"
+               style="-fx-font-family: 'Pretendard'; -fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #323A4C;">
+            <font><Font name="Pretendard" size="15.0" /></font>
+        </Label>
+        <ComboBox fx:id="comboBoxFromLocation" layoutX="860.0" layoutY="16.0" prefWidth="100.0" prefHeight="25.0"
+                  promptText="이동 전" />
+
+        <!-- 이동 후 위치 -->
+        <Label layoutX="970.0" layoutY="16.0" text="이동 후 위치"
+               style="-fx-font-family: 'Pretendard'; -fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #323A4C;">
+            <font><Font name="Pretendard" size="15.0" /></font>
+        </Label>
+        <ComboBox fx:id="comboBoxToLocation" layoutX="1060.0" layoutY="16.0" prefWidth="100.0" prefHeight="25.0"
+                  promptText="이동 후" />
+
+        <!-- 추가/수정, 삭제, 초기화 버튼 -->
+        <Button fx:id="buttonAddAndUpdate" layoutX="1170.0" layoutY="16.0"
+                mnemonicParsing="false" onAction="#addItemInTableView" text="추가/수정"
+                style="-fx-font-family: 'Pretendard'; -fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #323A4C;" />
+        <Button fx:id="buttonDelete" layoutX="1170.0" layoutY="56.0"
+                mnemonicParsing="false" onAction="#deleteTableViewRow" text="삭제"
+                style="-fx-font-family: 'Pretendard'; -fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #323A4C;" />
+        <Button fx:id="buttonClear" layoutX="1170.0" layoutY="96.0"
+                mnemonicParsing="false" onAction="#clearHeaderForm" text="초기화"
+                style="-fx-font-family: 'Pretendard'; -fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #323A4C;" />
+
+        <!-- 비고 -->
+        <Label layoutX="14.0" layoutY="56.0" text="비고"
+               style="-fx-font-family: 'Pretendard'; -fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #323A4C;">
+            <font><Font name="Pretendard" size="15.0" /></font>
+        </Label>
+        <TextField fx:id="textFieldRemarks" layoutX="60.0" layoutY="56.0" prefWidth="1100.0" prefHeight="25.0"
+                   promptText="비고 입력" />
+
+        <!-- 이동 내역 TableView -->
+        <TableView fx:id="tableViewItem" layoutX="14.0" layoutY="100.0"
+                   prefHeight="400.0" prefWidth="1146.0" />
+
+        <!-- 총 수량 -->
+        <Label layoutX="14.0" layoutY="520.0" text="총 이동 수량"
+               style="-fx-font-family: 'Pretendard'; -fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #323A4C;">
+            <font><Font name="Pretendard" size="15.0" /></font>
+        </Label>
+        <TextField fx:id="textFieldTotalQuantity" layoutX="110.0" layoutY="520.0"
+                   prefWidth="150.0" prefHeight="25.0" disable="true" editable="false" />
+
+        <!-- 저장/초기화 버튼 -->
+        <Button fx:id="buttonSave" layoutX="1050.0" layoutY="560.0"
+                mnemonicParsing="false" onAction="#save" text="저장"
+                style="-fx-font-family: 'Pretendard'; -fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #323A4C;" />
+        <Button fx:id="buttonClearAll" layoutX="1120.0" layoutY="560.0"
+                mnemonicParsing="false" onAction="#clearWholeForm" text="초기화"
+                style="-fx-font-family: 'Pretendard'; -fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #323A4C;" />
+    </children>
+</AnchorPane>
