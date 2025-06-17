@@ -28,7 +28,7 @@ public class DbConnection {
     public Connection getConnection() {
         try {
             return DriverManager.getConnection(
-                    "jdbc:oracle:thin:@localhost:1521:XE", "C##STOREPOS", "Sollee8974!"
+                    "jdbc:oracle:thin:@localhost:1521:XE", "C##STOREPOS", "@Sohn720906"
             );
         } catch (SQLException ex) {
             Logger.getLogger(DbConnection.class.getName()).log(Level.SEVERE, null, ex);
