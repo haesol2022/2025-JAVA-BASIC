@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="600.0" prefWidth="1200.0"
+            style="-fx-background-color: #E2EAFF;"
+            xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.StockTransferHistoryController">
+
+    <!-- 상단: 검색/필터 영역 -->
+    <top>
+        <HBox spacing="10.0" alignment="CENTER_LEFT">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <children>
+                <Label text="이동일자"
+                       style="-fx-font-family: 'Pretendard'; -fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #323A4C;">
+                    <font><Font name="Pretendard" size="15.0" /></font>
+                </Label>
+                <DatePicker fx:id="datePickerFilter" />
+                <Label text="품목"
+                       style="-fx-font-family: 'Pretendard'; -fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #323A4C;">
+                    <font><Font name="Pretendard" size="15.0" /></font>
+                </Label>
+                <ComboBox fx:id="comboBoxItemFilter" prefWidth="150.0" promptText="전체" />
+                <Label text="위치"
+                       style="-fx-font-family: 'Pretendard'; -fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #323A4C;">
+                    <font><Font name="Pretendard" size="15.0" /></font>
+                </Label>
+                <ComboBox fx:id="comboBoxLocationFilter" prefWidth="120.0" promptText="전체" />
+            </children>
+        </HBox>
+    </top>
+
+    <!-- 중앙: 이동 내역 테이블 -->
+    <center>
+        <TableView fx:id="tableViewHistory" prefHeight="500.0" prefWidth="1180.0" />
+    </center>
+</BorderPane>

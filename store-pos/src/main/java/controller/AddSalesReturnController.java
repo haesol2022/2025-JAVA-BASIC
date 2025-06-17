@@ -46,6 +46,7 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
 import javafx.scene.text.Font;
+import java.io.InputStream;
 
 /**
  *
@@ -513,9 +514,11 @@ public class AddSalesReturnController implements Initializable {
     }
 
     public void printInvoice() {
-        String sourceFile = "C://Users/Ramesh Godara/Documents/NetBeansProjects/RPOS/src/print/Invoice.jrxml";
         try {
-            JasperReport jr = JasperCompileManager.compileReport(sourceFile);
+            // 리소스 폴더에서 InputStream으로 로드
+            InputStream reportStream = getClass().getResourceAsStream("/print/Invoice.jrxml");
+            JasperReport jr = JasperCompileManager.compileReport(reportStream);
+
             HashMap<String, Object> para = new HashMap<>();
             para.put("invoiceNo", "SHOP01/000001");
             para.put("party", textFieldParty.getText());

@@ -15,15 +15,24 @@ import javafx.beans.property.*;
 
 public class StockTransferController {
 
-    @FXML private DatePicker date;
-    @FXML private TextField textFieldItem;
-    @FXML private ComboBox<String> comboBoxUom;
-    @FXML private TextField textFieldQty;
-    @FXML private ComboBox<String> comboBoxFromLocation;
-    @FXML private ComboBox<String> comboBoxToLocation;
-    @FXML private TextField textFieldRemarks;
-    @FXML private TableView<StockTransferItem> tableViewItem;
-    @FXML private TextField textFieldTotalQuantity;
+    @FXML
+    private DatePicker date;
+    @FXML
+    private TextField textFieldItem;
+    @FXML
+    private ComboBox<String> comboBoxUom;
+    @FXML
+    private TextField textFieldQty;
+    @FXML
+    private ComboBox<String> comboBoxFromLocation;
+    @FXML
+    private ComboBox<String> comboBoxToLocation;
+    @FXML
+    private TextField textFieldRemarks;
+    @FXML
+    private TableView<StockTransferItem> tableViewItem;
+    @FXML
+    private TextField textFieldTotalQuantity;
 
     private final ObservableList<StockTransferItem> transferItems = FXCollections.observableArrayList();
 
@@ -167,9 +176,13 @@ public class StockTransferController {
             String sql = "INSERT INTO STOCK_TRANSFERS (TRANSFER_DATE, ITEM_ID, UOM_ID, QTY, FROM_LOCATION, TO_LOCATION, REMARKS) VALUES (?, ?, ?, ?, ?, ?, ?)";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 for (StockTransferItem item : transferItems) {
+                    // 품목, 단위가 없으면 예외 발생 → catch에서 안내
+                    int itemId = getItemId(item.getItem(), conn);
+                    int uomId = getUomId(item.getUom(), conn);
+
                     pstmt.setDate(1, java.sql.Date.valueOf(date.getValue()));
-                    pstmt.setInt(2, getItemId(item.getItem(), conn));
-                    pstmt.setInt(3, getUomId(item.getUom(), conn));
+                    pstmt.setInt(2, itemId);
+                    pstmt.setInt(3, uomId);
                     pstmt.setInt(4, item.getQty());
                     pstmt.setString(5, item.getFromLocation());
                     pstmt.setString(6, item.getToLocation());
@@ -181,10 +194,12 @@ public class StockTransferController {
             showAlert("저장 완료", "재고 이동 내역이 저장되었습니다.");
             clearWholeForm(null);
         } catch (SQLException e) {
+            // 품목/단위가 없을 때 사용자에게 안내
             showAlert("DB 오류", e.getMessage());
             e.printStackTrace();
         }
     }
+
 
     private int getItemId(String itemName, Connection conn) throws SQLException {
         String sql = "SELECT ITEM_ID FROM ITEMS WHERE NAME = ?";
@@ -194,10 +209,12 @@ public class StockTransferController {
             if (rs.next()) {
                 return rs.getInt("ITEM_ID");
             } else {
+                // 품목이 없으면 예외 발생 → 저장 불가
                 throw new SQLException("품목명에 해당하는 ITEM_ID 없음: " + itemName);
             }
         }
     }
+
 
 
     private int getUomId(String uomName, Connection conn) throws SQLException {
@@ -243,17 +260,52 @@ public class StockTransferController {
             this.remarks = new SimpleStringProperty(remarks);
         }
 
-        public String getItem() { return item.get(); }
-        public StringProperty itemProperty() { return item; }
-        public String getUom() { return uom.get(); }
-        public StringProperty uomProperty() { return uom; }
-        public int getQty() { return qty.get(); }
-        public IntegerProperty qtyProperty() { return qty; }
-        public String getFromLocation() { return fromLocation.get(); }
-        public StringProperty fromLocationProperty() { return fromLocation; }
-        public String getToLocation() { return toLocation.get(); }
-        public StringProperty toLocationProperty() { return toLocation; }
-        public String getRemarks() { return remarks.get(); }
-        public StringProperty remarksProperty() { return remarks; }
+        public String getItem() {
+            return item.get();
+        }
+
+        public StringProperty itemProperty() {
+            return item;
+        }
+
+        public String getUom() {
+            return uom.get();
+        }
+
+        public StringProperty uomProperty() {
+            return uom;
+        }
+
+        public int getQty() {
+            return qty.get();
+        }
+
+        public IntegerProperty qtyProperty() {
+            return qty;
+        }
+
+        public String getFromLocation() {
+            return fromLocation.get();
+        }
+
+        public StringProperty fromLocationProperty() {
+            return fromLocation;
+        }
+
+        public String getToLocation() {
+            return toLocation.get();
+        }
+
+        public StringProperty toLocationProperty() {
+            return toLocation;
+        }
+
+        public String getRemarks() {
+            return remarks.get();
+        }
+
+        public StringProperty remarksProperty() {
+            return remarks;
+        }
     }
 }

@@ -210,9 +210,9 @@ public class MainPanelController implements Initializable {
             Button clickedButton = (Button) e.getSource();
             Button OtherButton = iteratorMenus.next();
             if (clickedButton == OtherButton) {
-              clickedButton.setStyle("-fx-text-fill:#f0f0f0;-fx-background-color:#2b2a26;");
+                clickedButton.setStyle("-fx-text-fill:#f0f0f0;-fx-background-color:#4B7DDB;");
             } else {
-              OtherButton.setStyle("-fx-text-fill:#f0f0f0;-fx-background-color:#404040;");
+              OtherButton.setStyle("-fx-text-fill:#f0f0f0;-fx-background-color:#538EFE;");
             }
         }
 
@@ -303,6 +303,12 @@ public class MainPanelController implements Initializable {
     @FXML
     private void loadStockTransferView(ActionEvent e) {
         loadFXML("StockTransferView");
+        changeButtonBackground(e);
+    }
+
+    @FXML
+    private void loadStockTransferDetailView(ActionEvent e) {
+        loadFXML("StockTransferDetailView");
         changeButtonBackground(e);
     }
 

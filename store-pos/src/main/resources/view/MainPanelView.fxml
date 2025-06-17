@@ -66,51 +66,12 @@
                   <Font name="Malgun Gothic Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="stockTransferDetail" mnemonicParsing="false" onAction="#loadListSalesReturnView" prefHeight="30.0" prefWidth="175.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="재고 이동 내역" textAlignment="JUSTIFY">
+            <Button fx:id="stockTransferDetail" mnemonicParsing="false" onAction="#loadStockTransferDetailView" prefHeight="30.0" prefWidth="175.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="재고 이동 내역" textAlignment="JUSTIFY">
                <font>
                   <Font name="Malgun Gothic Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="stockAdjustment" mnemonicParsing="false" onAction="#loadListSalesReturnView" prefHeight="30.0" prefWidth="175.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="재고 조정" textAlignment="JUSTIFY">
-               <font>
-                  <Font name="Malgun Gothic Bold" size="12.0" />
-               </font>
-            </Button>
-            <Button fx:id="stockAdjustmentDetail" mnemonicParsing="false" onAction="#loadListSalesReturnView" prefHeight="30.0" prefWidth="160.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="재고 조정 내역" textAlignment="JUSTIFY">
-               <font>
-                  <Font name="Malgun Gothic Bold" size="12.0" />
-               </font>
-            </Button>
-            <Button fx:id="receiptRegister" mnemonicParsing="false" onAction="#loadListSalesReturnView" prefHeight="30.0" prefWidth="175.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="영수증 등록" textAlignment="JUSTIFY">
-               <font>
-                  <Font name="Malgun Gothic Bold" size="12.0" />
-               </font>
-            </Button>
-            <Button fx:id="receiptDetail" mnemonicParsing="false" onAction="#loadListSalesReturnView" prefHeight="30.0" prefWidth="175.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="영수증 내역" textAlignment="JUSTIFY">
-               <font>
-                  <Font name="Malgun Gothic Bold" size="12.0" />
-               </font>
-            </Button>
-            <Button fx:id="paymentRegister" mnemonicParsing="false" onAction="#loadListSalesReturnView" prefHeight="30.0" prefWidth="175.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="결제 등록" textAlignment="JUSTIFY">
-               <font>
-                  <Font name="Malgun Gothic Bold" size="12.0" />
-               </font>
-            </Button>
-            <Button fx:id="paymentDetail" mnemonicParsing="false" onAction="#loadListSalesReturnView" prefHeight="30.0" prefWidth="175.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="결제 내역" textAlignment="JUSTIFY">
-               <font>
-                  <Font name="Malgun Gothic Bold" size="12.0" />
-               </font>
-            </Button>
-            <Button fx:id="journalRegister" mnemonicParsing="false" onAction="#loadListSalesReturnView" prefHeight="30.0" prefWidth="175.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="분개 등록" textAlignment="JUSTIFY">
-               <font>
-                  <Font name="Malgun Gothic Bold" size="12.0" />
-               </font>
-            </Button>
-            <Button fx:id="journalDetail" mnemonicParsing="false" onAction="#loadListSalesReturnView" prefHeight="30.0" prefWidth="175.0" style="-fx-text-fill: #f0f0f0;" styleClass="bt" stylesheets="@mainpanel.css" text="분개 내역" textAlignment="JUSTIFY">
-               <font>
-                  <Font name="Malgun Gothic Bold" size="12.0" />
-               </font>
-            </Button>
+
          </children>
 
 
